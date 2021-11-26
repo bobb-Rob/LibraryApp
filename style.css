@@ -1,0 +1,221 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+:root{
+    --limegreen:rgb(170, 228, 158);    
+    --lightLimeGreen: #102b10;
+    --deepLimeGreen: #020a02;
+    --border: border: 1px solid red;
+}
+
+body{
+    font-family: "josefin sans", "lobster",  sans-serif; 
+    
+}
+
+.mainpage-container{
+    min-height: 600px;
+    background-color: rgb(198, 233, 192);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.navBar{
+    background-color: var(--deepLimeGreen);
+    height: 90px;
+    position: relative;
+    padding: 1em;
+    color: var(--limegreen);    
+    font-family: "lobster";
+   
+    box-shadow: 0 0 10px 1px rgb(0, 12, 0);
+}
+
+.page-title{
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.add-btn{
+    background-color: var(--deepLimeGreen);
+    align-self: center;
+    height: 33px;
+    width: 150px;
+    color: var(--limegreen);
+    border: 1px solid var(--deepLimeGreen);
+    border-radius: 4px;
+    /* margin-left: auto;
+    margin-right: auto; */
+    margin-top: 40px;
+    font-size: 20px;
+    box-shadow: 0px 1px 5px 0px rgb(3, 26, 3);;
+}
+
+
+/* Form Section */
+#form-container{   
+    position: absolute;
+    padding: 40px;
+    top: 5em;    
+    width: 30rem;
+    align-self: center;
+    display: none;
+    background-color: var(--deepLimeGreen);
+    color: var(--limegreen);
+    font-size:20px;
+    border-radius: 10px;
+    box-shadow: 0 0 7px 1px rgb(0, 12, 0);
+}
+
+.form-title{
+    color: var(--limegreen);
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-bottom: 1.7rem;
+}
+
+
+.input-container{
+    position: relative;
+    margin: 1rem 0;
+}
+
+
+.input{
+    width: 100%;
+    outline: none;
+    border: 2px solid var(--limegreen);
+    background: none;
+    padding: 0.6rem 1.2rem;
+    color: var(--limegreen);
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
+    border-radius: 4px;    
+}
+
+.submit-btn{
+    padding: 0.3rem;
+    background-color: var(--limegreen);
+    border: 2px solid var(--limegreen);
+    font-size: 1.2rem;
+    color:var(--deepLimeGreen);
+    line-height: 1;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.submit-btn:hover:hover{
+    background-color: transparent;
+    color: var(--limegreen);
+}
+
+
+#read-status{
+    margin-left: 2rem;
+    outline: none;   
+    border: 2px solid #020a02; 
+    background-color: var(--limegreen);
+    padding: 9px; 
+}
+
+/* Book Collection Section */
+.books-section{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+/* current read  */
+
+.current-read,.collection{
+    background-color: var(--lightLimeGreen);
+    min-height: 23rem;
+    margin: 2rem 1rem;
+    border-radius: 4px;   
+}
+
+.current-read{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--limegreen);
+    position: relative;
+    height: 23rem !important;
+}
+
+.cur-heading{
+   border-bottom: 2px solid var(--limegreen);
+   position: absolute;
+   top: 0.3rem;
+   padding: 0.5rem;
+   width: 100%;
+   text-align: center;
+}
+
+.book-holder{
+    /* border: 2px solid red; */
+    padding: 0.5rem;
+    position: relative;
+    top: 2rem;
+}
+
+.book-holder .img-wrapper{
+    border: 2px solid var(--limegreen);
+    height: 8rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.book-desc{  
+    padding: 0.5rem;
+    text-align: center;
+}
+.book-desc p{  
+    padding: 0.2rem;
+    color: white;
+}
+
+
+.contRead-btn{
+    background-color: var(--limegreen);
+    border: 1px solid var(--limegreen);
+    width: 100%;
+    height: 1.5rem;
+    border-radius: 4px;
+};
+
+
+/* Collection section */
+
+.collection{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+
+.col-heading{
+    border-bottom: 2px solid var(--limegreen);
+    align-self: center;
+    padding: 0.5rem;
+    width: 100%;
+    text-align: center;
+    color: var(--limegreen);
+    margin-top: 0.3rem;
+}
+
+.collection-holder{
+    border: 2px solid red;
+    height: 26rem;
+}
+
