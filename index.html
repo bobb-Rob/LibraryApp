@@ -13,7 +13,8 @@
 </head>
 <body>
     <div class="mainpage-container">
-        <form id="form-container" action="addBookToLibrary.js">
+        <form id="form-container">
+            <button class="close-btn">Close</button>
             <h3 class="form-title">New Book Details</h3>
             <div class="input-container author">
                 <label for="author-name">Who is the Author?</label><br>
@@ -29,7 +30,7 @@
             </div>
             <div class="input-container read-status checkbox">
                 <label for="read-status">Have you read it?</label>
-                <input type="checkbox" name="read-status" id="read-status" required>
+                <input type="checkbox" name="read-status" id="read-status" >
             </div>    
             <button type="submit" class="submit-btn">Add book</button>
         </form>
