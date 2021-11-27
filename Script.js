@@ -55,7 +55,7 @@ const bookCollection = component("div", "books-section");
   bookCollection.appendChild(currentRead);
 
 
-  // Book Collection Section
+  // Collection Section on right
   const collection = component("div", "collection");
 
   const collectionHeading = component("h3", "col-heading");
@@ -64,11 +64,6 @@ const bookCollection = component("div", "books-section");
 
         const collectionHolder = component("div", "collection-holder");
         collection.appendChild(collectionHolder);
-
-
-  
-
-
 
   bookCollection.appendChild(collection);
 pageContainer.insertAdjacentElement("afterbegin", bookCollection);
@@ -125,7 +120,7 @@ function Book(bookTitle, author, pages, readStatus){
 //   });
 // }
 
-Book.prototype.createNewBookHolder = function(bookTitle, Author, pages, readStatus) {
+Book.prototype.createNewBookHolder = function() {
           const newBookHolder = component("div", "new-book-holder"); 
 
         const newbookImageWrapper = component("div", "new-img-wrapper")
@@ -136,19 +131,19 @@ Book.prototype.createNewBookHolder = function(bookTitle, Author, pages, readStat
         const newBookDescription = component("div", "new-book-desc");    
             // Book description display - using P at end of variable to know it is a paragraph element 
               const newBookTitleP = component("p", "new-book-title");
-              newBookTitleP.textContent = `Title: ${bookTitle}`;
+              newBookTitleP.textContent = `Title: ${this.title}`;
               newBookDescription.appendChild(newBookTitleP);
 
               const newAuthorP = component("p", "new-author")
-              newAuthorP.textContent = `Author: ${Author}`;
+              newAuthorP.textContent = `Author: ${this.author}`;
               newBookDescription.appendChild(newAuthorP);
 
               const newPagesP = component("p", "new-no-of-pages");
-              newPagesP.textContent = `Pages: ${pages}`;
+              newPagesP.textContent = `Pages: ${this.pages}`;
               newBookDescription.appendChild(newPagesP);
 
               const newReadStatusP = component("p", "new-read-status");
-              newReadStatusP.textContent = `Read Status: ${readStatus}`;
+              newReadStatusP.textContent = `Read Status: ${this.readStatus}`;
               newBookDescription.appendChild(newReadStatusP);
 
               const ReadNowBtn = component("button", "read-now-btn")
@@ -169,31 +164,55 @@ let myLibrary = [];
   const bookName = document.getElementById("author-name");
   const bookAuthor = document.getElementById("book-title");
   const pagesCount = document.getElementById("no-of-pages");
-  const readStatus = document.getElementById("read-status");
-  
+  const pageCountLabel = document.getElementById("label-display"); 
+  const readStatus = document.getElementById("read-status");  
+   
   
   function clearForm(){
     bookName.value = ""; 
     bookAuthor.value = ""; 
     pagesCount.value = "";
-    readStatus.value = "";
+    readStatus.checked = false;
     };
 
     // form submission
 formWrapper.addEventListener("submit", (e)=>{
   e.preventDefault();    
-const newBook = new Book(bookName.value, bookAuthor.value, pagesCount.value, readStatus.value);
-console.log(newBook.title);
-console.log(newBook.author);
+//  Check if Read status is checked(Yes)
+  let displayReadStatus = "Not Read"
+if(readStatus.checked === true){
+  displayReadStatus = "Read";  
+};
 
+// check if pages value is a number
+if(isNaN(pagesCount.value)){
+  pageCountLabel.textContent = "Must input numbers";
+  pageCountLabel.style.color = "red";
+  return false;
+}
+// create new Book
+const newBook = new Book(bookName.value, bookAuthor.value, pagesCount.value, displayReadStatus);
+
+// Push into library Array
 myLibrary.push(newBook);
 console.log(myLibrary);
 
-const bookHolder = newBook.createNewBookHolder(newBook.title, newBook.Author, newBook.pages, newBook.readStatus);
+// append new book to Document
+const bookHolder = newBook.createNewBookHolder();
 collectionHolder.appendChild(bookHolder);
-// newBook.addNewBookToCollection(myLibrary);
+
+// check for read status, and change display button to read now or continue reading
+let readStatusDisplay = document.querySelector(".new-read-status");
+console.log(readStatusDisplay)
+if(readStatusDisplay.textContent === "Read Status: Read"){
+let readbtn = document.querySelector(".read-now-btn");
+console.log(readbtn)
+readbtn.textContent = "Continue Reading";
+}
+
 formWrapper.style.display = "none";
+pageCountLabel.textContent = "How many pages?";
+pageCountLabel.style.color = "var(--limegreen)";
 clearForm();
 })
-
 
