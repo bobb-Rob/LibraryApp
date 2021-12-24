@@ -1,4 +1,7 @@
 
+
+
+
 *{
     box-sizing: border-box;
     margin: 0px;
@@ -17,8 +20,8 @@ body{
     
 }
 
-.mainpage-container{
-    min-height: 600px;
+#mainpage-container{
+    height: 100%;
     background-color: rgb(198, 233, 192);
     position: relative;
     display: flex;
@@ -164,13 +167,13 @@ body{
 }
 
 .cur-heading{
-   /* border-bottom: 2px solid var(--limegreen); */
+   border-bottom: 2px solid var(--limegreen);
    position: absolute;
    top: 0rem;
    padding: 0.5rem;
    width: 100%;
    text-align: center;
-   box-shadow: 0 0 3px 1px rgb(0, 12, 0);
+   /* box-shadow: 0 0 3px 1px rgb(0, 12, 0); */
    border-radius: 4px;
 }
 
@@ -218,13 +221,13 @@ body{
 
 
 .col-heading{
-    /* border-bottom: 2px solid var(--limegreen); */
+    border-bottom: 2px solid var(--limegreen);
     align-self: center;
     padding: 0.5rem;
     width: 100%;
     text-align: center;
     color: var(--limegreen);
-    box-shadow: 0 0 5px 1px rgb(0, 12, 0);
+    /* box-shadow: 0 0 5px 1px rgb(0, 12, 0); */
     border-radius: 4px;
 }
 
