@@ -13,27 +13,45 @@
 <body>
     <div id="mainpage-container">
         <form id="form-container">
-            <button class="close-btn">Close</button>
+            <button class="close-btn">X</button>
             <h3 class="form-title">New Book Details</h3>
+            
             <div class="input-container title">
                 <label for="book-title">Title of the book here</label><br>
-                <input type="text" name="book-title" id="book-title" class="input" required>
+                <input type="text" name="book-title" id="book-title" class="input">
             </div>
             <div class="input-container author">
                 <label for="author-name">Who is the Author?</label><br>
-                <input type="text" name="author-name" id="author-name" class="input" required>
+                <input type="text" name="author-name" id="author-name" class="input" >
             </div>            
             <div class="input-container pages">
-                <label for="no-of-pages" id="label-display">How many pages?</label><br>
-                <input type="text" name="no-of-pages" id="no-of-pages" class="input" required>
+                <label for="country" id="label-display">Country</label><br>
+                <input type="text" name="no-of-pages" id="country" class="input" >
             </div>
-            <div class="input-container read-status checkbox">
-                <label for="read-status">Have you read it? <span>Tick if Yes</span></label>
-                <input type="checkbox" name="read-status" id="read-status">
-            </div>    
+            <div class="input-container pages">
+                <label for="isbn" id="label-display">ISBN#</label><br>
+                <input type="number" name="isbn" id="isbn" class="input" >
+            </div>              
             
-            <button type="submit" class="submit-btn">Add book</button>
+            <button type="submit" class="submit-btn">Submit</button>
         </form>
+        <!-- <div class="alert alert-danger"></div> -->
+        <div class="table-container">
+            <table class="table table-striped mt-5 ">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Country</th>
+                        <th>ISBN#</th>
+                        <th>Have you Read</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="book-list"></tbody>
+            </table>
+        </div>
     </div>   
 </body>
 </html>
