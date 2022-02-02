@@ -9,8 +9,8 @@ import './css/toggleReadBtn.css';
 const UIElement = (() => {  
         //Append Nav Bar       
         NavBar.createNavBar(); 
-        Store.emptyLibraryMsg();  
-        
+        Store.emptyLibraryMsg();
+
         const yes = document.querySelector('#yes');
         console.log(yes)
        
