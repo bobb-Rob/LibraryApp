@@ -27,6 +27,7 @@ class UI {
         document.querySelector('#author-name').value = '';
         document.querySelector('#country').value = '';
         document.querySelector('#isbn').value = '';
+        document.querySelector('#readStatus').selectedIndex = 0; 
     }
 
     static showForm(){
@@ -117,6 +118,25 @@ class UI {
         //vanish in 4 seconds
         setTimeout(() => document.querySelector('.alert').remove(), 4000);  
     }
+
+    static getReadStatus(){
+        const readStatusOptions = document.querySelector('#readStatus');
+        let index = readStatusOptions.selectedIndex;
+        let options = readStatusOptions.options;         
+        return options[index].text.toLowerCase();
+    }
+
+    static verifyISBN(isbn){
+        const books = Store.getBooks();
+        const isbnVerify = books.some(book => isbn === book.isbn);        
+        if(isbnVerify){
+            UI.showAlert('ISBN must be unique for all books', 'danger');
+            document.querySelector('#isbn').focus();
+            return;
+        } 
+    }
+        
+
 }
 
 
@@ -140,36 +160,14 @@ document.querySelector("#form-container").addEventListener('submit', (e) =>{
      const author = document.querySelector('#author-name').value;    
      const country = document.querySelector('#country').value;
      const isbn = document.querySelector('#isbn').value;    
-    //  console.log(readStatusOptions.selectedIndex);  
-    //  console.log(readStatusOptions.options);  
-     const books = Store.getBooks();
- 
-    function getReadStatus(){
-        const readStatusOptions = document.querySelector('#readStatus');
-        let index = readStatusOptions.selectedIndex;
-        let options = readStatusOptions.options; 
-
-        let out;         
-        if(options[index].text.toLowerCase() === 'yes'){
-            out = true;
-        }else{
-           out = false;
-        }
-        return out;
-    }
-
+      
      // Validate all field
      if(title === '' || author == '' || isbn === ''){
         UI.showAlert('Please fill in all required fields', 'danger'); 
         document.querySelector('#book-title').focus();     
      }else{
-        //Check that isbn is unique for each book
-        const isbnVerify = books.some(book => isbn === book.isbn);        
-        if(isbnVerify){
-            UI.showAlert('ISBN must be unique for all books', 'danger');
-            document.querySelector('#isbn').focus();
-            return;
-        } 
+        //Check that isbn is unique for each book;
+        UI.verifyISBN(isbn)
 
         //Check that isbn Number is not less than five and not greater than 9
         if((isbn.toString().length < 5) || (isbn.toString().length > 9) ){
@@ -185,17 +183,29 @@ document.querySelector("#form-container").addEventListener('submit', (e) =>{
             document.querySelector('#country').focus();
             return;
         }
-      
+        
+        //Check that read status is not undefined;
+        let readStatus;                
+        if(UI.getReadStatus() === 'yes'){
+            readStatus = true;
+        }else{            
+          if(UI.getReadStatus() === 'no'){
+            readStatus = false;
+          }else{
+            UI.showAlert('Please select read status', 'danger');
+            return;
+          }
+        }       
 
         //Instatiate book
-        const book = new Book(title, author, country, isbn, getReadStatus());       
+        const book = new Book(title, author, country, isbn, readStatus);       
         
         //Add book to Book Store array       
         Store.addBookToStore(book)
         console.log(Store.getBooks());
             
         //Add Book to UI
-        UI.addBookToLibrary(book, books.length);
+        UI.addBookToLibrary(book, Store.getBooks().length);
         UI.hideForm(e,'hide');
         UI.clearFormFields();
         UI.showAlert('Book Added', 'green');              
