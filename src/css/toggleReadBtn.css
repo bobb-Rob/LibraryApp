@@ -4,6 +4,7 @@
     --lightLimeGreen: #102b10;
     --deepLimeGreen: #020a02;
     --border: border: 1px solid red;
+    --red: rgb(218, 38, 38);
 }
 
 .switch {
@@ -65,3 +66,39 @@
   .slider.round:before {
     border-radius: 50%;
   }
+
+.radio-btn-div{
+  /* border: 2px solid var(--lightLimeGreen); */
+  /* background-color: red;  */
+  /* display: flex; */
+  height: 40px;
+  /* justify-content: space-evenly;
+  align-items: center; */
+  position: relative;
+}
+
+.radio-btn-cell{
+  width: 150px;
+}
+
+#yes-div,#no-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75%;
+  width: 40%;
+  position: absolute;
+ 
+}
+
+#yes-div{
+  /* background-color: var(--limegreen); */
+  left: 0px;
+  margin: 5px 0px 5px 5px;
+}
+
+#no-div{
+  /* background-color: var(--red); */
+  right: 0px;
+  margin: 5px 5px 5px 0px;
+}

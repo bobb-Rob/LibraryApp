@@ -13,6 +13,7 @@
     --lightLimeGreen: #102b10;
     --deepLimeGreen: #020a02;
     --border: border: 1px solid red;
+    --red: rgb(218, 38, 38);
 }
 
 body{
@@ -186,15 +187,11 @@ thead{
    
 }
 
-thead>tr>th{
-    border: 1px solid var(--deepLimeGreen);
-    /* background-color: ; */
-}
+/*  */
 
 tbody{
     /* height: 160px; */
-    text-align: center;
-    border: 1px solid var(--deepLimeGreen);
+    text-align: center;  
 }
 
 tr{
@@ -252,4 +249,11 @@ tr{
     background-color: orange !important;
     position: absolute; 
     top: 100px; 
+}
+
+
+#form-alert{
+    background-color: rgba(255, 0, 0, 0.822) !important; 
+    position: sticky !important;
+   
 }

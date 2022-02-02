@@ -3,12 +3,16 @@ import Book from "./components/refactor/Book";
 import Store from "./components/BookStore";
 import uniqid from 'uniqid'
 import './css/style.css';
+import './css/toggleReadBtn.css';
 
 
 const UIElement = (() => {  
         //Append Nav Bar       
         NavBar.createNavBar(); 
-        Store.emptyArrayMsg();      
+        Store.emptyLibraryMsg();  
+        
+        const yes = document.querySelector('#yes');
+        console.log(yes)
        
 })();
 
@@ -52,29 +56,50 @@ class UI {
         console.log(book);
        
         row.innerHTML = `
-        <td>${Store.bookNumbering()}</td>
+        <td>${index + 1}</td>
         <td><strong>${book.title}</strong></td>
         <td>${book.author}</td>       
         <td>${book.country}</td>
         <td>${book.isbn}</td>
-        <td><div class='radio-btn-div' >
-            <input type='radio' name='readstatus' value='yes' id='yes' >
-            <label for='yes' >Yes</label>
-            <input type='radio' name='readstatus' value='no' id='no' >
-            <label for='no' >No</label>
+        <td class='radio-btn-cell' ><div class='radio-btn-div' >
+            <div id='yes-div' >
+                <input type='radio' name='readstatus' value='yes' id='yes'>
+                <label for='yes' ><strong>Yes</strong></label>
+            </div>
+            <div id='no-div' >
+                <input type='radio' name='readstatus' value='no' id='no' checked >
+                <label for='no' > <strong>No</strong> </label>
+            </div>
         </div></td>
         <td class='delete-btn-cell' ><button class="btn btn-danger
          btn-sm delete">X</button></td>
         `;
 
         list.appendChild(row);
-        Store.emptyArrayMsg(); 
-    }
-    //
 
+        Store.emptyLibraryMsg(); 
+    }
+
+
+    // Remove Book rows before books display after delete;
+    static clearBooks(){
+        let rows = document.querySelectorAll('.row');
+            if(rows){
+                rows.forEach(row => row.remove()) 
+            }else{
+                return;
+            }  
+    }
+
+
+    //Delete Book from UI
     static deleteBook(el){
         if(el.classList.contains('delete')){
-            el.parentElement.parentElement.remove();
+            el.parentElement.parentElement.remove();            
+            //clear the list before display again
+            UI.clearBooks();
+            //reset list to get serial book count correct;           
+            UI.displayBooks();
         }
     }
 
@@ -89,6 +114,7 @@ class UI {
             // shows alert when form fields are empty
             const form = document.querySelector('#form-container');
             const titleDiv = document.querySelector('.title');
+            div.id = `form-alert`;
             form.insertBefore(div, titleDiv);             
         }else if(UI.formDisplayed === 'hide'){ 
             // shows alert when add book is successfull
@@ -124,6 +150,8 @@ document.querySelector("#form-container").addEventListener('submit', (e) =>{
      const author = document.querySelector('#author-name').value;    
      const country = document.querySelector('#country').value;
      const isbn = document.querySelector('#isbn').value;
+     const radioButtons = document.querySelectorAll('input[name="readstatus"]');
+     console.log(radioButtons);
      const books = Store.getBooks();
  
      // Validate 
@@ -145,7 +173,7 @@ document.querySelector("#form-container").addEventListener('submit', (e) =>{
         console.log(Store.getBooks());
             
         //Add Book to UI
-        UI.addBookToLibrary(book, books.length - 1);
+        UI.addBookToLibrary(book, books.length);
         UI.hideForm(e,'hide');
         UI.clearFormFields();
         UI.showAlert('Book Added', 'green');              
@@ -165,5 +193,5 @@ document.querySelector('#book-list').addEventListener('click', (e) => {
     } 
     //Remove book from UI     
     UI.deleteBook(e.target);
-    Store.emptyArrayMsg();
+    Store.emptyLibraryMsg();
 })

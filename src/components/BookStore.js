@@ -25,7 +25,7 @@ export default class Store {
         console.log(newBooks);
     }
 
-    static emptyArrayMsg(){
+    static emptyLibraryMsg(){
         const div = document.createElement('div');
         div.className = `empty alert-empty`;
         div.appendChild(document.createTextNode('Library is empty. Add a book'));
@@ -41,21 +41,5 @@ export default class Store {
             }           
         } 
         
-    }
-
-    static bookNumbering(){
-        console.log(document.querySelectorAll('.row'))
-        const books = Store.getBooks();
-        let serialNumber;
-        for(let i = 1; i < books.length; i++){
-            if(books.length === 0){
-                return serialNumber = 0;
-            }else{               
-                serialNumber = i;
-            }
-           
-        }
-        
-        ;
-    }
+    }    
 }
