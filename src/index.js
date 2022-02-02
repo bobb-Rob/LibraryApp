@@ -1,7 +1,7 @@
 import NavBar from "./components/NavBar";
 import Book from "./components/refactor/Book";
 import Store from "./components/BookStore";
-import uniqid from 'uniqid'
+import countryList from "./components/countryNames";
 import './css/style.css';
 import './css/toggleReadBtn.css';
 
@@ -9,11 +9,7 @@ import './css/toggleReadBtn.css';
 const UIElement = (() => {  
         //Append Nav Bar       
         NavBar.createNavBar(); 
-        Store.emptyLibraryMsg();
-
-        const yes = document.querySelector('#yes');
-        console.log(yes)
-       
+        Store.emptyLibraryMsg();                   
 })();
 
 
@@ -62,14 +58,8 @@ class UI {
         <td>${book.country}</td>
         <td>${book.isbn}</td>
         <td class='radio-btn-cell' ><div class='radio-btn-div' >
-            <div id='yes-div' >
-                <input type='radio' name='readstatus' value='yes' id='yes'>
-                <label for='yes' ><strong>Yes</strong></label>
-            </div>
-            <div id='no-div' >
-                <input type='radio' name='readstatus' value='no' id='no' checked >
-                <label for='no' > <strong>No</strong> </label>
-            </div>
+            <button class='read-btn read-status-btn ${book.readStatus ? 'read-btn-green': 'read-btn-red'}' 
+            >${book.readStatus ? 'Read' : 'Not read'}</button>
         </div></td>
         <td class='delete-btn-cell' ><button class="btn btn-danger
          btn-sm delete">X</button></td>
@@ -149,24 +139,56 @@ document.querySelector("#form-container").addEventListener('submit', (e) =>{
      const title = document.querySelector('#book-title').value;
      const author = document.querySelector('#author-name').value;    
      const country = document.querySelector('#country').value;
-     const isbn = document.querySelector('#isbn').value;
-     const radioButtons = document.querySelectorAll('input[name="readstatus"]');
-     console.log(radioButtons);
+     const isbn = document.querySelector('#isbn').value;    
+    //  console.log(readStatusOptions.selectedIndex);  
+    //  console.log(readStatusOptions.options);  
      const books = Store.getBooks();
  
-     // Validate 
+    function getReadStatus(){
+        const readStatusOptions = document.querySelector('#readStatus');
+        let index = readStatusOptions.selectedIndex;
+        let options = readStatusOptions.options; 
+
+        let out;         
+        if(options[index].text.toLowerCase() === 'yes'){
+            out = true;
+        }else{
+           out = false;
+        }
+        return out;
+    }
+
+     // Validate all field
      if(title === '' || author == '' || isbn === ''){
-        UI.showAlert('Please fill in all required fields', 'danger');       
+        UI.showAlert('Please fill in all required fields', 'danger'); 
+        document.querySelector('#book-title').focus();     
      }else{
         //Check that isbn is unique for each book
         const isbnVerify = books.some(book => isbn === book.isbn);        
         if(isbnVerify){
             UI.showAlert('ISBN must be unique for all books', 'danger');
+            document.querySelector('#isbn').focus();
             return;
         } 
-          
+
+        //Check that isbn Number is not less than five and not greater than 9
+        if((isbn.toString().length < 5) || (isbn.toString().length > 9) ){
+            UI.showAlert('ISBN characters must be between five and nine', 'danger');
+            document.querySelector('#isbn').focus();
+            return;
+        }
+        
+        //Check that country value is valid
+        const matchedCountry = countryList.some(countryName => country.toLowerCase() === countryName.toLowerCase())
+        if(matchedCountry === false){
+            UI.showAlert('Please input a valid country', 'danger');
+            document.querySelector('#country').focus();
+            return;
+        }
+      
+
         //Instatiate book
-        const book = new Book(title, author, country, isbn);       
+        const book = new Book(title, author, country, isbn, getReadStatus());       
         
         //Add book to Book Store array       
         Store.addBookToStore(book)
@@ -185,13 +207,43 @@ document.querySelector("#form-container").addEventListener('submit', (e) =>{
 //Event: Remove book from Array and UI;
 document.querySelector('#book-list').addEventListener('click', (e) => {   
     e.stopPropagation();
-    console.log(e.target)
+    
     if(e.target.classList.contains('btn-sm')){
-        UI.showAlert('Book removed', 'orange');
-        console.log(e.target.parentElement.parentElement.id);
+        UI.showAlert('Book removed', 'orange');       
         Store.removeBook(e.target.parentElement.parentElement.id)
     } 
     //Remove book from UI     
     UI.deleteBook(e.target);
     Store.emptyLibraryMsg();
+})
+
+//Toggle Read Status for any Book on the list
+document.querySelector('#book-list').addEventListener('click', (e) => { 
+    e.stopPropagation();
+    if(e.target.classList.contains('read-status-btn')){
+        let isbn = e.target.parentElement.parentElement.previousElementSibling.textContent;
+       
+        const books = Store.getBooks();
+        const currentBook = books.find(book => book.isbn === isbn);
+             
+        if(currentBook.readStatus){           
+            currentBook.readStatus = false;
+            e.target.textContent = 'Not read';
+            e.target.classList.add('read-btn-red');
+            if(e.target.classList.contains('read-btn-green')){
+                e.target.classList.remove('read-btn-green');
+            }
+        }else{            
+            currentBook.readStatus  = true;
+            e.target.textContent = 'Read';
+            e.target.classList.add('read-btn-green');  
+            if(e.target.classList.contains('read-btn-red')){
+                e.target.classList.remove('read-btn-red');
+            }          
+        }
+                
+        Store.updateBooks(currentBook);
+    }else{
+        return;
+    }
 })

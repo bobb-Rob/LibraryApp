@@ -11,6 +11,19 @@ export default class Store {
         return books;
     }
 
+    static updateBooks(updatedBook){
+        const books = Store.getBooks();
+        const newBooks = books.map(book => {
+            if(book.isbn === updatedBook.isbn){
+                book = updatedBook;
+            }
+            return book;
+        })
+        localStorage.setItem('books', JSON.stringify(newBooks));
+        console.log(newBooks);
+    }
+
+    
     static addBookToStore(book){
         const books = Store.getBooks();
         books.push(book);

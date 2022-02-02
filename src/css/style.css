@@ -13,7 +13,7 @@
     --lightLimeGreen: #102b10;
     --deepLimeGreen: #020a02;
     --border: border: 1px solid red;
-    --red: rgb(218, 38, 38);
+    --red: rgb(155, 19, 19);
 }
 
 body{
@@ -102,7 +102,7 @@ body{
     border: 1px solid var(--deepLimeGreen);
     position: absolute;
     margin-left: 26rem;
-    background-color: rgb(218, 38, 38);
+    background-color: var(--red);
     width: 30px;
     height: 30px;
     border-radius: 5px;
@@ -130,13 +130,17 @@ body{
     width: 100%;
     outline: none;
     border: 1px solid var(--limegreen);
-    background: none;
+    background: white;
     padding: 0.3rem 0.5rem;
-    color: var(--limegreen);
+    color: var(--deepLimeGreen);
     font-size: 1rem;
     letter-spacing: 0.5px;
     transition: 0.3s;
     border-radius: 4px;    
+}
+
+.input:focus{
+    border: 2px solid var(--red);
 }
 
 .submit-btn{
@@ -203,13 +207,14 @@ tr{
 }
 
 .btn-danger{
-    background-color: rgb(218, 38, 38);
-    color: var(--deepLimeGreen);
+    background-color: var(--red);
+    color: white;
     width: 30px;
     height: 30px;
     text-decoration: none;
     border: none;
     font-size: 18px;
+    box-shadow: .5px .5px .5px 1px black;
 }
 
 /* Alert message style */
@@ -219,7 +224,7 @@ tr{
     height: 30px;
     padding-top:4px;
     background-color: var(--limegreen);
-    width: 300px;
+   min-width: 300px;
     align-self: center;
     text-align: center;
     color: var(--deepLimeGreen);

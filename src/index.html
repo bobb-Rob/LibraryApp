@@ -18,19 +18,27 @@
             
             <div class="input-container title">
                 <label for="book-title">Title of the book here</label><br>
-                <input type="text" name="book-title" id="book-title" class="input">
+                <input type="text" name="book-title" id="book-title" class="input" autofocus='true' >
             </div>
             <div class="input-container author">
                 <label for="author-name">Who is the Author?</label><br>
                 <input type="text" name="author-name" id="author-name" class="input" >
             </div>            
             <div class="input-container pages">
-                <label for="country" id="label-display">Country</label><br>
-                <input type="text" name="no-of-pages" id="country" class="input" >
+                <label for="country" >Country</label><br>
+                <input type="text" name="country" id="country" class="input" >
             </div>
             <div class="input-container pages">
-                <label for="isbn" id="label-display">ISBN#</label><br>
+                <label for="isbn" >ISBN#</label><br>
                 <input type="number" name="isbn" id="isbn" class="input" >
+            </div>              
+            <div class="input-container pages">
+                <label for="readStatus" >Read Status</label><br>
+                <select name="readStatus" id="readStatus" class="input" >
+                    <option value="">Please indicate read status</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
             </div>              
             
             <button type="submit" class="submit-btn">Submit</button>
